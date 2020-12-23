@@ -6,11 +6,11 @@ We log into the VM with the username "level00" and password "level00" at port 42
 
 In the subjet it is say that we have to get the flag by going into flag00 user.
 	
-	level00@SnowCrash:~$ su flag00
+	level00@SnowCrash:~$ su flag00 
 
 This user is protected by a password, so we start by searching all file that the user own. 
 	
-	find / -user flag00
+	find / -user flag00 2>/dev/null
 
 It give us the follow result 
 	
@@ -29,4 +29,4 @@ They encrypt it with rotation, it mean that we have to rotate the position of th
 You have to decript it with the decodeRot15 script
 	"nottoohardhere"
 
-getflag give you : x24ti5gi3x0ol2eh4esiuxias
+Check flag.Here is your token : x24ti5gi3x0ol2eh4esiuxias

@@ -1,0 +1,36 @@
+Level09 - snow_crash
+
+Connect with the previous password "25749xKZ8L7DkSCwJkT9dyv6f"
+	ssh -p 4242 level09@192.168.1.20 
+
+We have two file here, one level09 and one token
+	token output : f4kmm6p|=�p�n��DB�Du{��
+	the program level09 take one argument and give something strange
+
+When we ltrace the program level09
+	
+	level09@SnowCrash:~$ ltrace ./level09 test
+	__libc_start_main(0x80487ce, 2, 0xbffff7b4, 0x8048aa0, 0x8048b10 <unfinished ...>
+	ptrace(0, 0, 1, 0, 0xb7e2fe38)                                                     = -1
+	puts("You should not reverse this"You should not reverse this
+	)                                                = 28
+	+++ exited (status 1) +++
+
+When we try the program normally 
+
+	level09@SnowCrash:~$ ./level09 test
+	tfuw
+
+We can see that it encoded by adding the position in the string to the current letter.
+We try to reverse it with the code in reconvertString.c .
+
+	mkdir /tmp/test
+	cd /tmp/test
+	vi rec.c
+	paste the code 
+	gcc rec.c -o rec 
+	./rec `cat ~/token`
+	f3iji1ju5yuevaus41q1afiuq
+	su flag09
+
+Check flag.Here is your token : s5cAJpM8ev6XHw998pRWG728z

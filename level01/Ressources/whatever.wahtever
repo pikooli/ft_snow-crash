@@ -2,3 +2,13 @@ Level01 - snow_crash
 
 To log in you have to use the flag of the previous session. so "x24ti5gi3x0ol2eh4esiuxias"
 	ssh level01@192.168.1.20 -p 4242
+
+If you cat the /etc/passwd file you can see this line 
+	flag01:42hDRfypTqqnw:3001:3001::/home/flag/flag01:/bin/bash
+
+We can take this line and past it in a file and launch john to it, it will decode the password. 
+	abcdefg          (flag01)
+
+su flag01 with this password allow us to get the flag. 
+	
+Check flag.Here is your token : f2av5il02puano7naaf6adaaf
