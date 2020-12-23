@@ -1,0 +1,32 @@
+Level00 - snow_crash
+
+We log into the VM with the username "level00" and password "level00" at port 4242
+	
+	ssh level00@192.168.1.20 -p 4242
+
+In the subjet it is say that we have to get the flag by going into flag00 user.
+	
+	level00@SnowCrash:~$ su flag00
+
+This user is protected by a password, so we start by searching all file that the user own. 
+	
+	find / -user flag00
+
+It give us the follow result 
+	
+	/usr/sbin/john
+	/rofs/usr/sbin/john
+
+If we cat them it output 
+	
+	cat /usr/sbin/john
+	cdiiddwpgswtgt
+
+When we try to become user flag00 with this string, it do not work. 
+
+They encrypt it with rotation, it mean that we have to rotate the position of the letter in the alphabet, here we do a +15 rotation.
+
+You have to decript it with the decodeRot15 script
+	"nottoohardhere"
+
+getflag give you : x24ti5gi3x0ol2eh4esiuxias
