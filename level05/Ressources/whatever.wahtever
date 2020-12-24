@@ -24,6 +24,8 @@ so we going to put a little script inside, here the script
 
 	#!/bin/bash
 	getflag > /tmp/flag
+
+Don't forget to do chmod +x 
 do "watch -d ls -l" after some time the file will disapear and you can "cat /tmp/flag"
 
 Check flag.Here is your token : viuaaale9huek52boumoomioc
